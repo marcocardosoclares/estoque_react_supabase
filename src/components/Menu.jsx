@@ -2,7 +2,7 @@ import React from 'react'
 
 const Menu = () => {
   return (
-    <div className="list-group list-group-flush">
+    <div className="list-group list-group-flush rounded shadow-sm">
       <a href="#" className="list-group-item list-group-item-action list-group-item-light border-0">
         The current link item
       </a>

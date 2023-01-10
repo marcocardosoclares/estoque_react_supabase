@@ -4,9 +4,9 @@ import OffcanvasToggle from './OffcanvasToggle';
 
 const Navbar = () => {
   return (
-    <nav className="navbar bg-body">
-        <OffcanvasToggle />
-        <Link className="navbar-brand ms-2 me-auto" to="/dashboard">Estoque</Link>
+    <nav className="navbar bg-body mb-2 shadow-sm rounded-bottom">
+      <OffcanvasToggle />
+      <Link className="navbar-brand ms-2 me-auto" to="/dashboard">Estoque</Link>
     </nav>
   )
 }

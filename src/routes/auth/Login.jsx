@@ -22,7 +22,7 @@ const Login = () => {
             <Input label="E-mail" name="email" type="email" />
             <Input label="Senha" name="password" type="password" />
             <Checkbox label="Manter conexão" name="remember" />
-            <JustifyBetween className="d-flex justify-content-between align-items-center">
+            <JustifyBetween>
                 <Button>Entrar</Button>
                 <CustomLink route='/esqueci'>Esqueci a senha</CustomLink>
             </JustifyBetween>
