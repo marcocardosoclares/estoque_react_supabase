@@ -2,8 +2,6 @@ import { Navigate, Outlet, useLoaderData } from "react-router-dom";
 import Menu from "../components/Menu";
 import Navbar from '../components/Navbar';
 import { getSession } from "../controllers/Auth";
-import { Offcanvas } from 'bootstrap';
-
 
 export async function loader() {
 
@@ -21,17 +19,19 @@ const ProtectedRoute = () => {
   return (
       <>
         <Navbar />
-        <div className="offcanvas-md offcanvas-start" tabIndex="-1" id="offcanvasResponsiveLabel" aria-labelledby="offcanvasResponsiveLabel">
-          <div className="offcanvas-header">
-            <h5 className="offcanvas-title" id="offcanvasResponsiveLabel">Estoque</h5>
-            <button type="button" className="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsiveLabel" aria-label="Close"></button>
+        <div className="row">
+          <div className="offcanvas-md offcanvas-start col-auto" tabIndex="-1" id="sidebar" aria-labelledby="offcanvasResponsiveLabel">
+            <div className="offcanvas-header">
+              <h5 className="offcanvas-title" id="offcanvasResponsiveLabel">Estoque</h5>
+              <button type="button" className="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebar" aria-label="Close"></button>
+            </div>
+            <div className="offcanvas-body">
+              <Menu />
+            </div>
           </div>
-          <div className="offcanvas-body">
-            <Menu />
+          <div className="col-auto">
+            <Outlet />
           </div>
-        </div>
-        <div className="col">
-          <Outlet />
         </div>
       </>
   )
