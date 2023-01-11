@@ -6,7 +6,7 @@ import ResetPassword, { action as resetAction } from "./auth/ResetPassword";
 import Login, { action as authAction } from "./auth/Login";
 import Dashboard from "./dashboard/Dashboard";
 import ErrorPage from "./error/ErrorPage";
-import ProtectedRoute, {loader as protectedLoader} from './ProtectedRoute';
+import ProtectedRoute from './ProtectedRoute';
 
 
 const router = createBrowserRouter([
@@ -34,7 +34,6 @@ const router = createBrowserRouter([
     },
     {
         element: <ProtectedRoute />,
-        loader: protectedLoader,
         children: [
             { path: 'dashboard', element: <Dashboard /> },
 

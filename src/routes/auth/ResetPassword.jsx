@@ -1,5 +1,6 @@
 import React from 'react'
-import { Form, redirect } from 'react-router-dom'
+import { Form, Navigate, redirect } from 'react-router-dom'
+import { useAuth } from '../../contexts/Auth';
 import { resetPassword } from '../../controllers/Auth';
 
 export async function action({ request }) {
@@ -14,6 +15,10 @@ export async function action({ request }) {
 }
 
 const ResetPassword = () => {
+    const {event} = useAuth();
+    
+    if (event !== 'PASSWORD_RECOVERY') return <Navigate to="/" />
+    
     return (
         <Form method='post' className='col-md-4 col-sm-8 col shadow p-4 rounded-2 bg-white'>
             <Title>Informe a sua senha</Title>

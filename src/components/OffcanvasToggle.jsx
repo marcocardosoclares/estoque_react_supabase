@@ -13,7 +13,7 @@ const OffcanvasToggle = ({ target = '#sidebar' }) => {
 
   return (
     <button 
-    className="btn btn-light d-md-none" 
+    className="navbar-toggler d-md-none me-2" 
     type="button" 
     ata-bs-toggle="offcanvas" 
     data-bs-target={target} 

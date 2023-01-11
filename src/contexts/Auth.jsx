@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createContext, useContext } from 'react'
-import { redirect } from 'react-router-dom'
+import { getSession, getUserProfile } from '../controllers/Auth'
 import { supabase } from '../services/Database'
 
 const AuthContext = createContext()
@@ -11,63 +11,46 @@ export function useAuth() {
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
-  const [authError, setAuthError] = useState(null)
-
-  async function signIn(email, password) {
-    try {
-      setAuthError(null);
-      setLoading(true);
-
-      const { data, error } = await supabase.auth.signInWithPassword({ 
-        email, 
-        password 
-      });
-      
-      if (error) {
-        throw new Error(error);
-      } else {
-        setUser(data.user);
-        redirect("/dashboard");
-      }
-    } catch (err) {
-      setAuthError(err);
-    } finally {
-      setLoading(false)
-    }
-    
-  }
-
-  async function signOut() {
-    const { error } = await supabase.auth.signOut();
-
-    if (error) setAuthError(error)
-    setUser(null)
-  }
+  const [event, setEvent] = useState(null);
 
   useEffect(() => {
-    async function autoLogin() {
-      const {data: session} =  await supabase.auth.getSession();
-
-      console.log('auto login session',session.session)
-
+    async function sessionInfo() {
+      const session =  await getSession();
+      
+      if (session) {
+        const profile = await getUserProfile(session.user.id)
+        session.user.fullName = profile;
+      }
+      
       setUser(session?.user ?? null)
       setLoading(false)
-
-      const { data: listener } = supabase.auth.onAuthStateChange(
-        async (event, session) => {
-          setUser(session?.user ?? null)
-          setLoading(false)
-        }
-      )
     }
 
-    // autoLogin();
+    sessionInfo();
+
+    const { data: listener } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        if (session) {
+          if (session) {
+            const profile = await getUserProfile(session.user.id)
+            session.user.fullName = profile;
+          }
+        }
+        setUser(session?.user ?? null)
+        setEvent(event);
+        setLoading(false)
+      }
+    )
+
+    return () => {
+      listener.subscription;
+    }
 
   }, [])
 
 
   return (
-    <AuthContext.Provider value={{ signIn, signOut, user, loading, authError }}>
+    <AuthContext.Provider value={{ user, loading, event }}>
       { children }
     </AuthContext.Provider>
   )

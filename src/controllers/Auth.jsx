@@ -15,9 +15,14 @@ export async function getSession() {
     return session;
 }
 
-export async function getUser() {
-    const { data: { user } } = await supabase.auth.getUser();
-    return user;
+export async function getUserProfile(userId) {
+    const { data  } = await supabase
+      .from('profiles')
+      .select(`full_name`)
+      .eq('id', userId)
+      .single();
+
+    return data.full_name
 }
 
 export async function resetPasswordEmail(email) {
