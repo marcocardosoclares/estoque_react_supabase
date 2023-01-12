@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 
 const Menu = () => {
   return (
-    <div className="list-group list-group-flush flex-grow-1">
+    <div className="list-group list-group-flush w-100">
       <NavLink to='dashboard' className='list-group-item list-group-item-action list-group-item-light border-0'>
         <i className="bi bi-speedometer"></i>
         <span className='ms-3'>Dashboard</span>

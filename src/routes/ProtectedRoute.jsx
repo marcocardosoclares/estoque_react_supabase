@@ -23,7 +23,7 @@ const ProtectedRoute = () => {
             <Menu />
           </div>
         </nav>
-        <main className="col-md-9 col-lg-10">
+        <main className="col-md-9 col-lg-10 ps-5">
           <Outlet />
         </main>
       </div>

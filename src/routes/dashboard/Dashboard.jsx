@@ -1,8 +1,9 @@
 import React from 'react'
+import Title from '../../components/Title'
 
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
+    <Title position="start ">Dashboard</Title>
   )
 }
 

@@ -15,12 +15,12 @@ const Navbar = () => {
   }
 
   return (
-    <header className="navbar sticky-top shadow-sm">
+    <header className="navbar sticky-top shadow-sm bg-body mb-2">
       <div className="container-fluid">
         <OffcanvasToggle />
-        <Link className="navbar-brand me-auto" to="/dashboard">Estoque</Link>
+        <Link className="navbar-brand me-auto" to="/">Estoque</Link>
         <div className="hstack gap-2">
-          <Link to='/' className='btn btn-outline-dark border-0'>{ user && user.fullName }</Link>
+          <Link to='perfil' className='btn btn-outline-dark border-0'>{ user && user.fullName }</Link>
           <Button color='outline-dark border-0' onClick={handleClick}>
             <i className="bi bi-box-arrow-right"></i>
             <span className="ms-2">Sair</span>
