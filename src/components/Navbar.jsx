@@ -21,9 +21,9 @@ const Navbar = () => {
         <Link className="navbar-brand me-auto" to="/">Estoque</Link>
         <div className="hstack gap-2">
           <Link to='perfil' className='btn btn-outline-dark border-0'>{ user && user.fullName }</Link>
-          <Button color='outline-dark border-0' onClick={handleClick}>
+          <Button color='outline-dark border-0 hstack gap-2' onClick={handleClick}>
             <i className="bi bi-box-arrow-right"></i>
-            <span className="ms-2">Sair</span>
+            <span>Sair</span>
           </Button>
         </div>
       </div>
