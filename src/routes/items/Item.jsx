@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Checkbox, Input } from '../../components'
 import FormGroup from '../../components/FormGroup';
+import RelationInput from '../../components/RelationInput';
 import Select from '../../components/Select';
 import { getCategories } from '../../controllers/Categories';
 
 const Item = ({ item }) => {
   const columnSize = 'col-sm-6 col-lg-4';
-  
+
   return (
     <>
       { item?.id && 
@@ -30,7 +31,8 @@ const Item = ({ item }) => {
         <Input label='Quantidade Máxima' name='maximum_quantity' type='number' fieldValue={ item?.maximum_quantity ?? '' } />
       </FormGroup>
       <FormGroup columns={columnSize}>
-        <Select label='Categoria' name='category_id' loadFunction={getCategories} fieldValue={ item?.category_id ?? '' } />
+        <RelationInput label='Categoria' name='category_id' relation='categories' columns='id, name' />
+        {/* <Select label='Categoria' name='category_id' loadFunction={getCategories} fieldValue={ item?.category_id ?? '' } /> */}
       </FormGroup>
       <FormGroup>
         <Checkbox label='Ativo' name='active' checked={ item?.active} />

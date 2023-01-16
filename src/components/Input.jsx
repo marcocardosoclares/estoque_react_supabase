@@ -9,7 +9,7 @@ const Input = ({ fieldValue, label, name, type = 'text' }) => {
 
   return (
     <>
-    <label htmlFor={ name } className='form-label'>{ label }</label>
+      <label htmlFor={ name } className='form-label'>{ label }</label>
       <input 
         className="form-control" 
         id= {name } 
@@ -17,7 +17,8 @@ const Input = ({ fieldValue, label, name, type = 'text' }) => {
         onChange={ handleChange }
         type={ type } 
         value={ value } 
-      /></>
+      />
+    </>
   )
 }
 

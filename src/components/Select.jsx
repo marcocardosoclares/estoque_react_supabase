@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-const Select = ({ label, loadFunction, name }) => {
+const Select = ({ fieldValue, label, loadFunction, name }) => {
   const [categories, setCategories] = useState(null);
 
   async function handleClick() {
@@ -9,6 +9,17 @@ const Select = ({ label, loadFunction, name }) => {
       if (data) setCategories(data);
     }
   }
+
+  useEffect(() => {
+    if(fieldValue) {
+      
+    }
+  
+    return () => {
+      second
+    }
+  }, [third])
+  
 
   return (
     <>

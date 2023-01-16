@@ -19,7 +19,7 @@ const Items = () => {
                 <Title color='secondary' position='start'>Meus Itens</Title>
                 <Link to='inserir' className='btn btn-sm btn-success'>Inserir</Link>
             </div>
-            { data && <Table columns={indexColumns} rows={data} /> }
+            { data && <Table columns={indexColumns} rows={data} actions /> }
         </>
     )
 }
