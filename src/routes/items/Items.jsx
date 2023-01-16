@@ -3,7 +3,7 @@ import { Link, useLoaderData } from 'react-router-dom';
 import Table from '../../components/Table';
 import Title from '../../components/Title';
 import { getItems } from '../../controllers/Items';
-import { itemFillables } from '../../models/Item';
+import { indexColumns } from '../../models/Item';
 
 export async function loader() {
     const { data, error } = await getItems();
@@ -19,7 +19,7 @@ const Items = () => {
                 <Title color='secondary' position='start'>Meus Itens</Title>
                 <Link to='inserir' className='btn btn-sm btn-success'>Inserir</Link>
             </div>
-            { data && <Table columns={itemFillables} rows={data} /> }
+            { data && <Table columns={indexColumns} rows={data} /> }
         </>
     )
 }

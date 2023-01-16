@@ -1,13 +1,11 @@
 import React from 'react'
 import { redirect, useLoaderData } from 'react-router-dom'
 import BaseForm from '../../components/BaseForm';
-import { assetFullInsert } from '../../controllers/ProcessAsset';
-import Asset from './Item';
+import Item from './Item';
 
 export async function action({ request }) {
   const formData = await request.formData();
-  const asset = Object.fromEntries(formData);
-  const success = await assetFullInsert(asset);
+  const item = Object.fromEntries(formData);
   
   if (success) {
     return redirect('/itens');
@@ -17,16 +15,16 @@ export async function action({ request }) {
 }
 
 export async function loader({ params }) {
-    return getAsset(params.assetId);
+    return getItem(params.itemId);
 }
 
-const UpdateAsset = () => {
-    const asset = useLoaderData();
+const UpdateItem = () => {
+    const item = useLoaderData();
     return (
-        <BaseForm title="Novo Item">
-            <Asset asset={asset} />
+        <BaseForm title="Editar Item">
+            <Item item={item} />
         </BaseForm>
     )
 }
 
-export default UpdateAsset
+export default UpdateItem

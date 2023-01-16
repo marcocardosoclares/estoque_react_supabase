@@ -1,4 +1,5 @@
 import React from 'react'
+import CrudActions from './CrudActions'
 
 const Table = ({ columns, rows }) => {
   return (
@@ -13,6 +14,7 @@ const Table = ({ columns, rows }) => {
                 { rows.map((row, index) => (
                     <tr key={index}>
                         { Object.keys(columns).map((column, index) => <td key={index}>{ row[column] }</td>) }
+                        <td><CrudActions route={`${row.id}`} /></td>
                     </tr>
                     
                 )) }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const Input = ({ columns = 'col-12', fieldValue, label, name, type }) => {
+const Input = ({ fieldValue, label, name, type = 'text' }) => {
   const [value, setValue] = useState(fieldValue);
 
   function handleChange({ target }) {
@@ -8,17 +8,16 @@ const Input = ({ columns = 'col-12', fieldValue, label, name, type }) => {
   }
 
   return (
-    <div className={ columns }>
-      <label htmlFor={name} className='form-label'>{label}</label>
+    <>
+    <label htmlFor={ name } className='form-label'>{ label }</label>
       <input 
         className="form-control" 
-        id={name} 
-        name={name} 
-        onChange={handleChange}
-        type={type || "text"} 
-        value={value} 
-      /> 
-    </div>
+        id= {name } 
+        name={ name } 
+        onChange={ handleChange }
+        type={ type } 
+        value={ value } 
+      /></>
   )
 }
 

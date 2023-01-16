@@ -1,21 +1,48 @@
 import React from 'react'
 import { Checkbox, Input } from '../../components'
+import FormGroup from '../../components/FormGroup';
 import Select from '../../components/Select';
 import { getCategories } from '../../controllers/Categories';
 
-const Item = ({ asset }) => {
+const Item = ({ item }) => {
   const columnSize = 'col-sm-6 col-lg-4';
   
   return (
     <>
-      <Input columns={columnSize} label='Nome' name='name' fieldValue={asset?.name ?? '' } />
-      <Input columns={columnSize} label='Descrição' name='description' fieldValue={asset?.description ?? '' } />
-      <Input columns={columnSize} label='Quantidade Atual' name='quantity' fieldValue={asset?.quantity ?? '' } />
-      <Input columns={columnSize} label='Quantidade Mínima' name='minimum_quantity' fieldValue={asset?.minimum_quantity ?? '' } />
-      <Input columns={columnSize} label='Quantidade Máxima' name='maximum_quantity' fieldValue={asset?.maximum_quantity ?? '' } />
-      <Select columns={columnSize} label='Categoria' name='group_id' loadFunction={getCategories} fieldValue={asset?.group_id ?? '' } />
-      <Checkbox label='Ativo' name='active' checked={asset?.active} />
+      { item?.id && 
+        <FormGroup columns={columnSize}>
+          <Input label='Id' name='id' fieldValue={ item?.id } />
+        </FormGroup>
+      }
+      <FormGroup columns={columnSize}>
+        <Input label='Nome' name='name' fieldValue={ item?.name ?? '' } />
+      </FormGroup>
+      <FormGroup columns={columnSize}>
+        <Input label='Descrição' name='description' fieldValue={ item?.description ?? '' } />
+      </FormGroup>
+      <FormGroup columns={columnSize}>
+        <Input label='Quantidade Atual' name='quantity' type='number' fieldValue={ item?.quantity ?? '' } />
+      </FormGroup>
+      <FormGroup columns={columnSize}>
+        <Input label='Quantidade Mínima' name='minimum_quantity' type='number' fieldValue={ item?.minimum_quantity ?? '' } />
+      </FormGroup>
+      <FormGroup columns={columnSize}>
+        <Input label='Quantidade Máxima' name='maximum_quantity' type='number' fieldValue={ item?.maximum_quantity ?? '' } />
+      </FormGroup>
+      <FormGroup columns={columnSize}>
+        <Select label='Categoria' name='category_id' loadFunction={getCategories} fieldValue={ item?.category_id ?? '' } />
+      </FormGroup>
+      <FormGroup>
+        <Checkbox label='Ativo' name='active' checked={ item?.active} />
+      </FormGroup>
     </>
+      
+      
+      
+     
+      
+      
+      
   )
 }
 

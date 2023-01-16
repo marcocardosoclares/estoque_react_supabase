@@ -1,12 +1,10 @@
 import { insertItem } from "../controllers/Items";
 
-export const itemFillables = { 
+export const indexColumns = { 
+    'id': 'Id',
     'name': 'Nome',
-    'description': 'Descrição', 
     'quantity': 'Atual',
-    'minimum_quantity': 'Mínimo',
-    'maximum_quantity': 'Máximo',
-    'category_id': 'Categoria',
+    'category_name': 'Categoria',
     'active': 'Ativo' 
 };
 
@@ -16,11 +14,11 @@ export async function Insert(item) {
     if (insertResult.error) return false;
     
     const movement = {
-        in_out: 'I',
-        item_id: insertResult.id,
-        quantity: amount.quantity,
-        amount: amount.quantity,
-        description: 'Cadastro'
+        'in_out': 'I',
+        'item_id': insertResult.id,
+        'quantity': item.quantity,
+        'amount': item.quantity,
+        'description': 'Cadastro'
     }
     
     insertResult = await insertMovement(movement);
