@@ -29,7 +29,7 @@ const Item = ({ item }) => {
         <Input label='Quantidade Máxima' name='maximum_quantity' type='number' fieldValue={ item?.maximum_quantity ?? '' } />
       </FormGroup>
       <FormGroup columns={columnSize}>
-        <RelationInput label='Categoria' name='category_id' relation='categories' />
+        <RelationInput label='Categoria' name='category_id' relation='categories' fieldValue={item?.categories} />
       </FormGroup>
       <FormGroup>
         <Checkbox label='Ativo' name='active' checked={ item?.active} />

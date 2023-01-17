@@ -14,6 +14,8 @@ export async function insertItem(item) {
 }
 
 export async function getItem(id) {
-    const {data, error} = await supabase.from('items').select().eq('id',id).single();
+    const {data, error} = await supabase.from('items').select(
+        '*, categories(id, name)'
+    ).eq('id',id).single();
     return { data, error };
 }
