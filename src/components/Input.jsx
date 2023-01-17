@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const Input = ({ fieldValue, label, name, type = 'text' }) => {
+const Input = ({ fieldValue, label, name, type = 'text', ...props }) => {
   const [value, setValue] = useState(fieldValue);
 
   function handleChange({ target }) {
@@ -17,6 +17,7 @@ const Input = ({ fieldValue, label, name, type = 'text' }) => {
         onChange={ handleChange }
         type={ type } 
         value={ value } 
+        { ...props }
       />
     </>
   )

@@ -10,6 +10,7 @@ import ProtectedRoute from './ProtectedRoute';
 import Items,{ loader as itemsLoader} from "./items/Items";
 import InsertItem, { action as insertItemAction } from "./items/InsertItem";
 import ShowItem, { loader as showItemLoader } from "./items/ShowItem";
+import UpdateItem, { loader as UpdateItemLoader, action as UpdateItemAction } from "./items/UpdateItem";
 
 
 const router = createBrowserRouter([
@@ -48,6 +49,12 @@ const router = createBrowserRouter([
                 path: 'itens/:itemId/visualizar',
                 element: <ShowItem />,
                 loader: showItemLoader
+            },
+            {
+                path: 'itens/:itemId/editar',
+                element: <UpdateItem />,
+                loader: UpdateItemLoader,
+                action: UpdateItemAction
             },
             {
                 path: 'itens/inserir',

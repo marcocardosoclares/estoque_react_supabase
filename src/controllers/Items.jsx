@@ -17,5 +17,15 @@ export async function getItem(id) {
     const {data, error} = await supabase.from('items').select(
         '*, categories(id, name)'
     ).eq('id',id).single();
+
     return { data, error };
+}
+
+export async function updateItem(item) {
+    if ('active' in item === false) item.active = false;
+
+    const { error } = await supabase
+    .from('items').update(item).eq('id', item.id);;
+
+    return error ? false : true;
 }

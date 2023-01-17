@@ -14,7 +14,7 @@ const ShowItem = () => {
 
     return (
       <BaseForm disabled title="Visualizar Item">
-        <Item item={data} />
+        <Item item={data} quantidades />
       </BaseForm>
     )
 }
