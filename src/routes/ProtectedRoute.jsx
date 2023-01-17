@@ -3,11 +3,11 @@ import Menu from "../components/Menu";
 import Modal from "../components/Modal";
 import Navbar from '../components/Navbar';
 import { useAuth } from "../contexts/Auth";
-import { ModalProvider, useModal } from "../contexts/ModalContext";
+import { useModal } from "../contexts/ModalContext";
 
 const ProtectedRoute = () => {
   const { user } = useAuth();
-  const { relation } = useModal();
+  const { modal } = useModal();
 
   if (!user) {
     return <Navigate to="/" />;
@@ -28,7 +28,7 @@ const ProtectedRoute = () => {
         </nav>
         <main className="col-md-9 col-lg-10 ps-5">
           <Outlet />
-          { relation && <Modal /> }
+          { modal && <Modal /> }
         </main>
       </div>
     </>

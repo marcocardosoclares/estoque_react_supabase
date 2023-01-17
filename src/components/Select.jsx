@@ -10,17 +10,6 @@ const Select = ({ fieldValue, label, loadFunction, name }) => {
     }
   }
 
-  useEffect(() => {
-    if(fieldValue) {
-      
-    }
-  
-    return () => {
-      second
-    }
-  }, [third])
-  
-
   return (
     <>
       <label htmlFor={ name } className='form-label'>{label}</label>

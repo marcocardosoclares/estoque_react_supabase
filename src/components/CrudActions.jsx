@@ -1,13 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Button from './Button'
 
 const CrudActions = ({ route }) => {
   return (
-    <div className="btn-group">
-        <Button type="button" color="outline-dark" data-bs-toggle="dropdown" aria-expanded="false">
+    <div className="dropdown position-static">
+        <button type="button" className="shadow-none border-0 btn btn-sm py-0 my-0" data-bs-toggle="dropdown" aria-expanded="false">
             <i className="bi bi-three-dots-vertical"></i>
-        </Button>
+        </button>
         <ul className="dropdown-menu dropdown-menu-end">
             <li><Link to={`${route}/visualizar`} className='dropdown-item'>Visualizar</Link></li>
             <li><Link to={`${route}/editar`} className='dropdown-item'>Editar</Link></li>

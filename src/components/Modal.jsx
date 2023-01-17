@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useModal } from '../contexts/ModalContext'
-import { getRelation } from '../controllers/RelationSearch';
 import Table from './Table';
+import { Modal as bsModal } from 'bootstrap';
 
 const Modal = () => {
-    const { relation, columns } = useModal();
-    const [rows, setRows] = useState(null)
+    const { columns, rows, relationInput } = useModal();
 
-    useEffect(() => {
-      async function relations() {
-        const {data, error } = await getRelation(relation, columns);
-        setRows(data);
-      }
+    function handleClick({ currentTarget }) {
+        const [id, description] = currentTarget.querySelectorAll('td');
+        const responseId = document.querySelector(`#${relationInput}-id`);
+        const responseDescription = document.querySelector(`#${relationInput}-description`);
+        responseId.value = id.innerText;
+        responseDescription.value = description.innerText;
 
-      if(relation) relations();
-    }, [])
-    
+        const modal = bsModal.getInstance('#modal');
+        modal.hide();
+    }
+
     return (
         <div className="modal fade modal-lg" id="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div className="modal-dialog">
@@ -25,7 +26,7 @@ const Modal = () => {
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div className="modal-body">
-                        { rows && <Table columns={ {'id': 'Id', 'name': 'Nome'} } rows={rows} title='Categorias' /> }
+                        { rows && <Table columns={ columns } rows={rows} title='Categorias' onClick={handleClick} /> }
                     </div>
                 </div>
             </div>

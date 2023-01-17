@@ -1,4 +1,5 @@
 import { insertItem } from "../controllers/Items";
+import { insertMovement } from "../controllers/Movements";
 
 export const indexColumns = { 
     'id': 'Id',

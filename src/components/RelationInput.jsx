@@ -1,27 +1,24 @@
-import { Modal } from 'bootstrap';
 import React, { useEffect } from 'react'
 import { useModal } from '../contexts/ModalContext'
 
-const RelationInput = ({ columns, label, name, relation }) => {
-    const { setRelation, setColumns } = useModal();
+const RelationInput = ({ label, name, relation }) => {
+    const { prepareModal, setModal } = useModal();
 
     async function handleClick() {
-        const bsModal = Modal.getOrCreateInstance('#modal');
-        bsModal.show();
+        await prepareModal(relation);
     };
-    
+
     useEffect(() => {
-      setRelation(relation);
-      setColumns(columns);
+      setModal(true);
     }, [])
     
     return (
         <>
             <label htmlFor={ name } className='form-label'>{ label }</label>
             <div className="input-group">
-                <input type="text" className="form-control" name={name} id={name} />
-                <input type="text" className="form-control w-50" />
-                <button type="button" className="btn btn-outline-secondary" onClick={handleClick}>
+                <input type="text" className="form-control" name={name} id={`${relation}-id`} readOnly />
+                <input type="text" className="form-control w-50" id={`${relation}-description`} readOnly />
+                <button type="button" className="btn btn-outline-dark" onClick={handleClick} data-bs-toggle="modal" data-bs-target="#modal">
                     <i className="bi bi-search"></i>
                 </button>
             </div>

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Form, redirect } from 'react-router-dom'
 import { Button, Checkbox, CustomLink, Input, JustifyBetween, Title } from '../../components'
+import FormGroup from '../../components/FormGroup';
 import { signIn } from '../../controllers/Auth';
 
 export async function action({ request }) {
@@ -19,9 +20,15 @@ const Login = () => {
     return (
         <Form method='post' className='col-md-4 col-sm-8 col shadow-sm p-4 rounded-2 bg-body'>
             <Title>Login</Title>
-            <Input label="E-mail" name="email" type="email" />
-            <Input label="Senha" name="password" type="password" />
-            <Checkbox label="Manter conexão" name="remember" />
+            <FormGroup>
+                <Input label="E-mail" name="email" type="email" fieldValue={''} />
+            </FormGroup>
+            <FormGroup>
+                <Input label="Senha" name="password" type="password" fieldValue={''} />
+            </FormGroup>
+            <FormGroup>
+                <Checkbox label="Manter conexão" name="remember" />
+            </FormGroup>
             <JustifyBetween>
                 <Button>Entrar</Button>
                 <CustomLink route='/esqueci'>Esqueci a senha</CustomLink>
