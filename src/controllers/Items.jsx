@@ -1,7 +1,7 @@
 import { indexColumns } from '../models/Item';
 import { supabase } from '../services/Database';
 
-export async function getItems(searchQuery) {
+export async function getItems(searchQuery, sortBy) {
 
     let query = supabase.from('items_view').select('*');
     
@@ -13,7 +13,7 @@ export async function getItems(searchQuery) {
         query = query.or(filter.join(','));
     }
 
-    const { data, error } = await query.order('id');
+    const { data, error } = await query.order(sortBy ?? 'id');
 
     return { data, error };
 }

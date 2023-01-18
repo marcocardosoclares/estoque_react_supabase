@@ -8,7 +8,8 @@ import { indexColumns } from '../../models/Item';
 export async function loader({ request }) {
     const url = new URL(request.url);
     const query = url.searchParams.get("q");
-    const { data, error } = await getItems(query);
+    const sort = url.searchParams.get("s");
+    const { data, error } = await getItems(query, sort);
     return { data, error, query };
 }
 
@@ -54,7 +55,7 @@ const Items = () => {
             </div>
             { data && 
                 <TableContainer>
-                    <TableColumns columns={Object.values(indexColumns)} />
+                    <TableColumns columns={indexColumns} />
                     <ItemTableRows actions columns={Object.keys(indexColumns)} rows={data} />
                 </TableContainer>
             }
