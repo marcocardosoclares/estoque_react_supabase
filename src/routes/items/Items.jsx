@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, useLoaderData } from 'react-router-dom';
-import Table from '../../components/Table';
+import { TableContainer, TableColumns, ItemTableRows } from '../../components/table';
 import Title from '../../components/Title';
 import { getItems } from '../../controllers/Items';
 import { indexColumns } from '../../models/Item';
@@ -19,7 +19,12 @@ const Items = () => {
                 <Title color='secondary' position='start'>Meus Itens</Title>
                 <Link to='inserir' className='btn btn-sm btn-success'>Inserir</Link>
             </div>
-            { data && <Table columns={indexColumns} rows={data} actions movements onClick={getStatus} /> }
+            { data && 
+                <TableContainer>
+                    <TableColumns columns={Object.values(indexColumns)} />
+                    <ItemTableRows actions columns={Object.keys(indexColumns)} rows={data} />
+                </TableContainer>
+            }
         </>
     )
 }

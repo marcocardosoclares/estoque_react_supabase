@@ -1,6 +1,6 @@
 import React from 'react'
 import { useModal } from '../contexts/ModalContext'
-import Table from './Table';
+import { TableContainer, TableColumns, TableRows } from './table';
 import { Modal as bsModal } from 'bootstrap';
 
 const Modal = () => {
@@ -26,7 +26,12 @@ const Modal = () => {
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div className="modal-body">
-                        { rows && <Table columns={ columns } rows={rows} title='Categorias' onClick={handleClick} /> }
+                        {rows && 
+                            <TableContainer>
+                                <TableColumns columns={Object.values(columns)} />
+                                <TableRows columns={Object.keys(columns)} rows={rows} onClick={handleClick} />
+                            </TableContainer>
+                        }
                     </div>
                 </div>
             </div>

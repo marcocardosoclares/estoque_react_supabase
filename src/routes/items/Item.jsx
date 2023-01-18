@@ -10,7 +10,7 @@ const Item = ({ item, quantidades }) => {
     <>
       { item?.id && 
         <FormGroup columns={columnSize}>
-          <Input label='Id' name='id' fieldValue={ item?.id } disabled />
+          <Input label='Id' name='id' fieldValue={ item?.id } readOnly />
         </FormGroup>
       }
       <FormGroup columns={columnSize}>

@@ -6,7 +6,8 @@ export const indexColumns = {
     'name': 'Nome',
     'quantity': 'Atual',
     'category_name': 'Categoria',
-    'active': 'Ativo' 
+    'active': 'Ativo',
+    'item_status': 'Status' 
 };
 
 export async function Insert(item) {
