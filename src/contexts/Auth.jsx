@@ -31,10 +31,8 @@ export function AuthProvider({ children }) {
     const { data: listener } = supabase.auth.onAuthStateChange(
       async (event, session) => {
         if (session) {
-          if (session) {
-            const profile = await getUserProfile(session.user.id)
-            session.user.fullName = profile;
-          }
+          const profile = await getUserProfile(session.user.id)
+          session.user.fullName = profile;
         }
         setUser(session?.user ?? null)
         setEvent(event);

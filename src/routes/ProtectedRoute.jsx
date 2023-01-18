@@ -10,7 +10,7 @@ const ProtectedRoute = () => {
   const { modal } = useModal();
 
   if (!user) {
-    return <Navigate to="/" />;
+    return <Navigate to="/" replace />;
   }
 
   return (

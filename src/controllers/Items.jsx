@@ -1,7 +1,19 @@
+import { indexColumns } from '../models/Item';
 import { supabase } from '../services/Database';
 
-export async function getItems() {
-    const { data, error } = await supabase.from('items_view').select().order('id');
+export async function getItems(searchQuery) {
+
+    let query = supabase.from('items_view').select('*');
+    
+    if (searchQuery) {
+        let filter = [];
+        Object.keys(indexColumns).filter(column => !['id','quantity'].includes(column)).map(column => {
+            filter.push(`${column}.ilike.%${searchQuery}%`)
+        });
+        query = query.or(filter.join(','));
+    }
+
+    const { data, error } = await query.order('id');
 
     return { data, error };
 }
