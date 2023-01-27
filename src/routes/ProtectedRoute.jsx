@@ -1,7 +1,6 @@
+import { useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import Menu from "../components/Menu";
-import Modal from "../components/Modal";
-import Navbar from '../components/Navbar';
+import { Menu, Modal, Navbar } from "../components";
 import { useAuth } from "../contexts/Auth";
 import { useModal } from "../contexts/ModalContext";
 
@@ -9,9 +8,9 @@ const ProtectedRoute = () => {
   const { user } = useAuth();
   const { modal } = useModal();
 
-  if (!user) {
-    return <Navigate to="/" replace />;
-  }
+  useEffect(() => {
+    if (!user) <Navigate to="/" replace />;
+  }, [])
 
   return (
     <>

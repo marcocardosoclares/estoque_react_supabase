@@ -1,6 +1,6 @@
 import React from 'react'
-import { Form, redirect } from 'react-router-dom'
-import { Button, CustomLink, Input, JustifyBetween, Title } from '../../components';
+import { Form, Link, redirect, useNavigation } from 'react-router-dom'
+import { Button, FormInput, Title } from '../../components';
 import { resetPasswordEmail } from '../../controllers/Auth';
 
 export async function action({ request }) {
@@ -15,14 +15,16 @@ export async function action({ request }) {
 }
 
 const Forgot = () => {
+    const {formData} = useNavigation();
+    
     return (
-        <Form method='post' className='col-md-4 col-sm-8 col shadow p-4 rounded-2 bg-white'>
+        <Form method='post' className='col-md-4 col-sm-8 col shadow p-4 rounded-2 bg-body'>
             <Title>Informe o seu e-mail</Title>
-            <Input label="E-mail" name="email" type="email" />
-            <JustifyBetween>
-                <Button>Enviar</Button>
-                <CustomLink route='/'>Ah, lembrei!</CustomLink>
-            </JustifyBetween>
+            <FormInput label="E-mail" name="email" type="email" />
+            <Button className="btn btn-primary" disabled={formData}>
+                { formData ? 'Enviando...' : 'Enviar' }
+            </Button>
+            <Link to='/' className='text-decoration-none float-end'>Ah, lembrei!</Link>
         </Form>
     )
 }

@@ -1,55 +1,71 @@
 import React from 'react'
-import { Checkbox, Input } from '../../components'
-import FormGroup from '../../components/FormGroup';
-import RelationInput from '../../components/RelationInput';
+import { FormCheckbox, FormInput, RelationInput } from '../../components'
 
-const Item = ({ item, quantidades }) => {
+const Item = ({ item, withMovements, ...props }) => {
   const columnSize = 'col-sm-6 col-lg-4';
 
   return (
     <>
       { item?.id && 
-        <FormGroup columns={columnSize}>
-          <Input label='Id' name='id' fieldValue={ item?.id } readOnly />
-        </FormGroup>
+        <FormInput 
+          columns={columnSize} 
+          defaultValue={ item.id } 
+          label='Id' 
+          name='id' 
+          { ...props }
+        />
       }
-      <FormGroup columns={columnSize}>
-        <Input label='Nome' name='name' fieldValue={ item?.name ?? '' } />
-      </FormGroup>
-      <FormGroup columns={columnSize}>
-        <Input label='Descrição' name='description' fieldValue={ item?.description ?? '' } />
-      </FormGroup>
-      <FormGroup columns={columnSize}>
-        <RelationInput 
+      <FormInput 
+        columns={columnSize} 
+        defaultValue={ item?.name ?? '' } 
+        label='Nome' 
+        name='name' 
+      { ...props }
+      />
+      <FormInput 
+        columns={columnSize} 
+        defaultValue={ item?.description ?? '' } 
+        label='Descrição' 
+        name='description' 
+      { ...props }
+      />
+      { withMovements && 
+        <>
+          <FormInput 
+            columns={columnSize} 
+            defaultValue={ item?.quantity ?? '' }
+            label='Quantidade Atual' 
+            name='quantity' 
+            type='number'  
+            { ...props }
+          />
+          <FormInput 
+            columns={columnSize}
+            defaultValue={ item?.minimum_quantity ?? '' }
+            label='Quantidade Mínima' name='minimum_quantity' 
+            type='number'  
+            { ...props }
+          />
+          <FormInput 
+            columns={columnSize}
+            defaultValue={ item?.maximum_quantity ?? '' }
+            label='Quantidade Máxima' 
+            name='maximum_quantity' 
+            type='number' 
+            { ...props }
+          />
+        </>
+      }
+      <RelationInput 
+        columns={columnSize}
         label='Categoria' 
         name='category_id' 
         relation='categories' 
-        fieldValue={ { 'id' : item?.categories.id ?? '', 'description' : item?.categories.name ?? '' } } />
-      </FormGroup>
-      <FormGroup>
-        <Checkbox label='Ativo' name='active' checked={ item?.active || false } />
-      </FormGroup>
-      { quantidades && 
-        <>
-          <FormGroup columns={columnSize}>
-            <Input label='Quantidade Atual' name='quantity' type='number' fieldValue={ item?.quantity ?? '' } />
-          </FormGroup>
-          <FormGroup columns={columnSize}>
-            <Input label='Quantidade Mínima' name='minimum_quantity' type='number' fieldValue={ item?.minimum_quantity ?? '' } />
-          </FormGroup>
-          <FormGroup columns={columnSize}>
-            <Input label='Quantidade Máxima' name='maximum_quantity' type='number' fieldValue={ item?.maximum_quantity ?? '' } />
-          </FormGroup>
-        </>
-      }
+        values={ { 'id' : item?.categories.id ?? '', 'description' : item?.categories.name ?? '' } } 
+        disabled={'readOnly' in props}
+      />
+      <FormCheckbox defaultChecked={ item?.active } label='Ativo' name='active' disabled={'readOnly' in props} />
     </>
-      
-      
-      
-     
-      
-      
-      
   )
 }
 

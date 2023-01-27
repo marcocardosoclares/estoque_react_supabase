@@ -1,21 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
-const Select = ({ fieldValue, label, loadFunction, name }) => {
-  const [categories, setCategories] = useState(null);
-
-  async function handleClick() {
-    if (!categories) {
-      const { data, error } = await loadFunction();
-      if (data) setCategories(data);
-    }
-  }
-
+const Select = ({ options, label, name }) => {
   return (
     <>
       <label htmlFor={ name } className='form-label'>{label}</label>
-      <select className="form-select" name={name} id={name} onClick={handleClick}>
+      <select className="form-select" name={name} id={name}>
         <option defaultValue>Clique para carregar</option>
-        { categories && categories.map(category => <option key={ category.id } value={ category.id }>{ category.name }</option>) }
+        { options && options.map(option => <option key={ option.id } value={ option.id }>{ option.name }</option>) }
       </select>
     </>
   )

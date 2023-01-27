@@ -1,14 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-const Checkbox = ({ checked, label, name }) => {
-  const [value, setValue] = useState(checked)
-
-  function handleChange({ target }) {
-    setValue(target.checked);
-  }
+const Checkbox = ({ label, name, ...props }) => {
   return (
     <div className="form-check">
-      <input className="form-check-input" type="checkbox" name={ name } id={ name } checked={value} onChange={handleChange} />
+      <input className="form-check-input" type="checkbox" name={ name } id={ name } { ...props } />
       <label className="form-check-label" htmlFor={ name }>{ label }</label>
     </div>
   )

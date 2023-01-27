@@ -3,7 +3,9 @@ import { supabase } from '../services/Database';
 
 export async function getItems(searchQuery, sortBy) {
 
-    let query = supabase.from('items_view').select('*');
+    let query = supabase.from('items_view').select(
+        Object.keys(indexColumns).join(',')
+    );
     
     if (searchQuery) {
         let filter = [];
@@ -19,7 +21,8 @@ export async function getItems(searchQuery, sortBy) {
 }
 
 export async function insertItem(item) {
-    const {data, error} = await supabase.from('items').insert(item).select('id');
+    const {data, error} = await supabase
+    .from('items').insert(item).select('id');
     const id = !error ? data[0].id : null;
 
     return { id, error };
@@ -37,7 +40,7 @@ export async function updateItem(item) {
     if ('active' in item === false) item.active = false;
 
     const { error } = await supabase
-    .from('items').update(item).eq('id', item.id);;
+    .from('items').update(item).eq('id', item.id);
 
     return error ? false : true;
 }

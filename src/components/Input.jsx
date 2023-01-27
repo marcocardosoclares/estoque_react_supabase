@@ -1,12 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-const Input = ({ fieldValue, label, name, type = 'text', ...props }) => {
-  const [value, setValue] = useState(fieldValue);
-
-  function handleChange({ target }) {
-    setValue(target.value);
-  }
-
+const Input = ({ label, name, type = 'text', ...props }) => {
   return (
     <>
       <label htmlFor={ name } className='form-label'>{ label }</label>
@@ -14,9 +8,7 @@ const Input = ({ fieldValue, label, name, type = 'text', ...props }) => {
         className="form-control" 
         id= {name } 
         name={ name } 
-        onChange={ handleChange }
         type={ type } 
-        value={ value } 
         { ...props }
       />
     </>

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useModal } from '../contexts/ModalContext'
 
-const RelationInput = ({ label, name, relation, fieldValue }) => {
+const RelationInput = ({ columns = 'col-12', label, name, relation, values, ...props }) => {
     const { prepareModal, setModal } = useModal();
 
     async function handleClick() {
@@ -13,16 +13,36 @@ const RelationInput = ({ label, name, relation, fieldValue }) => {
     }, [])
     
     return (
-        <>
+        <div className={ `${ columns } mb-3` }>
             <label htmlFor={ name } className='form-label'>{ label }</label>
             <div className="input-group">
-                <input type="text" className="form-control" name={name} id={`${relation}-id`} defaultValue={fieldValue?.id ?? ''} readOnly />
-                <input type="text" className="form-control w-50" id={`${relation}-description`} defaultValue={fieldValue?.description ?? ''} readOnly />
-                <button type="button" className="btn btn-outline-dark" onClick={handleClick} data-bs-toggle="modal" data-bs-target="#modal">
+                <input 
+                    className="form-control" 
+                    defaultValue={values?.id ?? ''} 
+                    id={`${relation}-id`} 
+                    name={name} 
+                    readOnly 
+                    type="text" 
+                />
+                <input 
+                    className="form-control" 
+                    defaultValue={values?.description ?? ''} 
+                    id={`${relation}-description`} 
+                    readOnly 
+                    type="text" 
+                />
+                <button 
+                    className="btn btn-outline-dark" 
+                    data-bs-toggle="modal" 
+                    data-bs-target="#modal" 
+                    onClick={handleClick} 
+                    type="button" 
+                    { ...props }
+                >
                     <i className="bi bi-search"></i>
                 </button>
             </div>
-        </>
+        </div>
     )
 }
 

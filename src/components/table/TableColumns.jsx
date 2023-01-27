@@ -7,7 +7,6 @@ const TableColumns = ({ columns }) => {
   const [ searchParams ] = useSearchParams();
 
   function handleClick({ currentTarget }) {
-    console.log(searchParams)
     searchParams.set('s',currentTarget.id)
     submit()
   }
