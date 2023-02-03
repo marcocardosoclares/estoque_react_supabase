@@ -58,7 +58,7 @@ const Item = ({ item, withMovements, ...props }) => {
       }
       <RelationInput 
         columns={columnSize}
-        label='Categoria' 
+        label='Categoria'
         name='category_id' 
         relation='categories' 
         values={ { 'id' : item?.categories.id ?? '', 'description' : item?.categories.name ?? '' } } 

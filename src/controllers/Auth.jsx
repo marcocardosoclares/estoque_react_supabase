@@ -16,7 +16,7 @@ export async function getSession() {
 }
 
 export async function getUserProfile(userId) {
-    const { data  } = await supabase
+    const { data } = await supabase
       .from('profiles')
       .select(`full_name`)
       .eq('id', userId)
@@ -36,4 +36,3 @@ export async function resetPassword(password) {
     const { data, error } = await supabase.auth.updateUser({password})
     return { data, error };
 }
-

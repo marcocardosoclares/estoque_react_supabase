@@ -10,6 +10,7 @@ import Navbar from './Navbar';
 import RelationInput from './RelationInput';
 import Spinner from './Spinner';
 import Title from './Title';
+import Notify from './Notify';
 
 export { 
     Button, 
@@ -23,5 +24,6 @@ export {
     Navbar,
     RelationInput, 
     Spinner,
-    Title 
+    Title,
+    Notify 
 };

@@ -6,11 +6,12 @@ import ResetPassword, { action as resetAction } from "./auth/ResetPassword";
 import Login, { action as authAction } from "./auth/Login";
 import Dashboard from "./dashboard/Dashboard";
 import ErrorPage from "./error/ErrorPage";
-import ProtectedRoute from './ProtectedRoute';
 import Items,{ loader as itemsLoader} from "./items/Items";
 import InsertItem, { action as insertItemAction } from "./items/InsertItem";
 import ShowItem, { loader as showItemLoader } from "./items/ShowItem";
 import UpdateItem, { loader as UpdateItemLoader, action as UpdateItemAction } from "./items/UpdateItem";
+import MainLayout from "./MainLayout";
+import Private from "./Private";
 
 
 const router = createBrowserRouter([
@@ -37,12 +38,12 @@ const router = createBrowserRouter([
         ]
     },
     {
-        element: <ProtectedRoute />,
+        element: <MainLayout />,
         children: [
-            { path: 'dashboard', index: true, element: <Dashboard /> },
+            { path: '/dashboard', index: true, element: <Private><Dashboard /></Private> },
             {
-                path: 'itens',
-                element: <Items />,
+                path: '/itens',
+                element: <Private><Items /></Private>,
                 loader: itemsLoader,
             },
             {

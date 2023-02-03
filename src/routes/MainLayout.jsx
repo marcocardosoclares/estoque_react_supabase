@@ -1,21 +1,15 @@
-import { useEffect } from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import React from "react";
+import { Outlet } from "react-router-dom";
 import { Menu, Modal, Navbar } from "../components";
-import { useAuth } from "../contexts/Auth";
 import { useModal } from "../contexts/ModalContext";
 
-const ProtectedRoute = () => {
-  const { user } = useAuth();
+const MainLayout = () => {
   const { modal } = useModal();
-
-  useEffect(() => {
-    if (!user) <Navigate to="/" replace />;
-  }, [])
 
   return (
     <>
       <Navbar />
-      <div className="container-fluid row">
+      <div className="container-fluid row h-100">
         <nav className="offcanvas-md offcanvas-start col-md-3 col-lg-2" tabIndex="-1" id="sidebar" aria-labelledby="offcanvasResponsiveLabel">
           <div className="offcanvas-header">
             <h5 className="offcanvas-title" id="offcanvasResponsiveLabel">Estoque</h5>
@@ -27,11 +21,11 @@ const ProtectedRoute = () => {
         </nav>
         <main className="col-md-9 col-lg-10 ps-5">
           <Outlet />
-          { modal && <Modal /> }
+          { modal ? <Modal /> : null }
         </main>
       </div>
     </>
   )
 }
 
-export default ProtectedRoute
+export default MainLayout

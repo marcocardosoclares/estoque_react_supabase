@@ -9,7 +9,9 @@ const RelationInput = ({ columns = 'col-12', label, name, relation, values, ...p
     };
 
     useEffect(() => {
-      setModal(true);
+      setModal(!props.disabled);
+
+      return () => { setModal(false) }
     }, [])
     
     return (
