@@ -19,6 +19,7 @@ export async function action({ request }) {
 const InsertItem = () => {
   const navigate = useNavigate();
   const { formData } = useNavigation();
+  
   return (
     <>
       <Title color='secondary' position='start'>Incluir item</Title>

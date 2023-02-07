@@ -8,6 +8,7 @@ import Menu from './Menu';
 import Modal from './Modal';
 import Navbar from './Navbar';
 import RelationInput from './RelationInput';
+import SearchSpinner from './SearchSpinner';
 import Spinner from './Spinner';
 import Title from './Title';
 import Notify from './Notify';
@@ -23,6 +24,7 @@ export {
     Modal,
     Navbar,
     RelationInput, 
+    SearchSpinner,
     Spinner,
     Title,
     Notify 
