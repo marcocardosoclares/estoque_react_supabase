@@ -1,16 +1,16 @@
 import React from 'react'
 import { Form, useLoaderData, useNavigate, useNavigation } from 'react-router-dom'
 import { Button, Spinner, Title } from '../../components';
-import { getItem } from '../../controllers/Items';
-import Item from './Item';
+import { getCategory } from '../../controllers/Categories';
+import Category from './Category';
 
 export async function loader({ params }) {
-  const { data, error } = await getItem(params.itemId);
+  const { data, error } = await getCategory(params.categoryId);
   console.log(data)
   return { data, error };
 }
 
-const ShowItem = () => {
+const ShowCategory = () => {
     const { data, error } = useLoaderData();
     const navigate = useNavigate();
     const { state, formData } = useNavigation();
@@ -19,15 +19,15 @@ const ShowItem = () => {
     ? <Spinner /> 
     : ( 
         <>
-            <Title color='secondary' position='start'>Visualizar item</Title>
+            <Title color='secondary' position='start'>Visualizar categoria</Title>
             <Form method='post'>
                 <fieldset className='row g-3'>
-                    <Item item={data} readOnly />
+                    <Category category={data} readOnly />
                 </fieldset>
                 <Button 
                     className="btn btn-dark" 
                     disabled={formData} 
-                    onClick={() => navigate('/itens')}
+                    onClick={() => navigate('/categorias')}
                     type="button"
                 >
                     Voltar
@@ -37,4 +37,4 @@ const ShowItem = () => {
     )
 }
 
-export default ShowItem
+export default ShowCategory
