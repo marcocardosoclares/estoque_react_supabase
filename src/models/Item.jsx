@@ -13,7 +13,7 @@ export const indexColumns = {
 export async function Insert(item) {
     let insertResult = null;
     insertResult = await insertItem(item);
-    if (insertResult.error) return false;
+    if (insertResult.error) return insertResult;
     
     const movement = {
         'in_out': 'I',
@@ -24,7 +24,6 @@ export async function Insert(item) {
     }
     
     insertResult = await insertMovement(movement);
-    if (insertResult.error) return false;
   
-    return true;
+    return insertResult;
 }

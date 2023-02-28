@@ -1,3 +1,4 @@
+import Alert from './Alert';
 import Button from './Button';
 import CustomLink from './CustomLink';
 import FormCheckbox from './FormCheckbox';
@@ -9,11 +10,13 @@ import Modal from './Modal';
 import Navbar from './Navbar';
 import RelationInput from './RelationInput';
 import SearchSpinner from './SearchSpinner';
+import Select from './Select';
 import Spinner from './Spinner';
 import Title from './Title';
 import Notify from './Notify';
 
 export { 
+    Alert,
     Button, 
     CustomLink,
     FormCheckbox, 
@@ -25,6 +28,7 @@ export {
     Navbar,
     RelationInput, 
     SearchSpinner,
+    Select,
     Spinner,
     Title,
     Notify 

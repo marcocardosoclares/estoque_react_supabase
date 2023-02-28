@@ -1,14 +1,13 @@
 import React from 'react'
 
-const Select = ({ options, label, name }) => {
+const Select = ({ columns = 'col-12', label, name, options }) => {
   return (
-    <>
+    <div className={ `${ columns } mb-3` }>
       <label htmlFor={ name } className='form-label'>{label}</label>
       <select className="form-select" name={name} id={name}>
-        <option defaultValue>Clique para carregar</option>
-        { options && options.map(option => <option key={ option.id } value={ option.id }>{ option.name }</option>) }
+        { options && options.map(({ value, name }) => <option key={ value } value={ value }>{ name }</option>) }
       </select>
-    </>
+    </div>
   )
 }
 

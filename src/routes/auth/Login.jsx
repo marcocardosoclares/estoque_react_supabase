@@ -8,9 +8,9 @@ import { signIn } from '../../controllers/Auth';
 export async function action({ request }) {
     const formData = await request.formData();
     const credentials = Object.fromEntries(formData);
-    const { error } = await signIn(credentials);
+    const { data, error } = await signIn(credentials);
     
-    return error;
+    return { data, error};
 }
 
 const Login = () => {
@@ -20,6 +20,7 @@ const Login = () => {
     const addNotify = useNotify();
 
     useEffect(() => {
+        console.log(fetcher)
       if(fetcher.data) addNotify('E-mail ou senha inválidos')
     }, [fetcher.data])
     

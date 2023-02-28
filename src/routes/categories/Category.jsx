@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormInput } from '../../components'
 
-const Item = ({ category, ...props }) => {
+const Category = ({ category, ...props }) => {
     const columnSize = 'col-sm-6 col-lg-4';
 
     return (
@@ -12,7 +12,7 @@ const Item = ({ category, ...props }) => {
                 defaultValue={ category.id } 
                 label='Id' 
                 name='id' 
-                { ...props }
+                readOnly
                 />
             }
             <FormInput 
@@ -33,4 +33,4 @@ const Item = ({ category, ...props }) => {
     )
 }
 
-export default Item
+export default Category

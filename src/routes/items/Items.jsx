@@ -4,6 +4,7 @@ import { TableContainer, TableColumns, ItemTableRows } from '../../components/ta
 import {SearchSpinner, Spinner, Title} from '../../components';
 import { getItems } from '../../controllers/Items';
 import { indexColumns } from '../../models/Item';
+import { useNotify } from '../../contexts/NotifyContext';
 
 export async function loader({ request }) {
     const url = new URL(request.url);
@@ -16,10 +17,12 @@ export async function loader({ request }) {
 
 const Items = () => {
     const { data, error, query } = useLoaderData();
+    const addNotify = useNotify();
     const submit = useSubmit();
     const navigation = useNavigation();
     const searching = navigation.location &&
     new URLSearchParams(navigation.location.search).has("q");
+
 
     function handleChange({ currentTarget }) {
         const isFirstSearch = query == null;
@@ -27,6 +30,8 @@ const Items = () => {
     }
 
     useEffect(() => {
+        if (error) addNotify('Não foi possível carregar os itens');
+        
         document.getElementById("q").value = query;
     }, [query]);
 

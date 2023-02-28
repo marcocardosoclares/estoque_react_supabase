@@ -6,7 +6,7 @@ const FormInput = ({ columns = 'col-12', label, name, type = 'text', ...props })
             <label htmlFor={ name } className='form-label'>{ label }</label>
             <input 
                 className="form-control" 
-                id= {name } 
+                id= { name } 
                 name={ name } 
                 type={ type } 
                 { ...props }

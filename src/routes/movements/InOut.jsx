@@ -1,18 +1,19 @@
 import React from 'react'
 import { Form, redirect, useLoaderData, useNavigate, useNavigation } from 'react-router-dom'
 import { Alert, Button, Title } from '../../components';
-import { getItem, updateItem } from '../../controllers/Items';
-import Item from './Item';
+import { getItem } from '../../controllers/Items';
+import Movement from './Movement';
 
 export async function action({ request }) {
   
   const formData = await request.formData();
-  const item = Object.fromEntries(formData);
-  const success = await updateItem(item);
+  const movement = Object.fromEntries(formData);
+  console.log(movement);
+//   const success = await updateItem(item);
   
-  if (success) {
-    return redirect('/itens');
-  }
+//   if (success) {
+//     return redirect('/itens');
+//   }
 
   return null;
 }
@@ -22,7 +23,7 @@ export async function loader({ params }) {
   return data;
 }
 
-const UpdateItem = () => {
+const InOut = () => {
     const item = useLoaderData();
     const navigate = useNavigate();
     const { state, formData } = useNavigation();
@@ -31,13 +32,13 @@ const UpdateItem = () => {
     ? <Spinner /> 
     : ( item 
         ? <>
-            <Title color='secondary' position='start'>Alterar item</Title>
+            <Title color='secondary' position='start'>Movimentar Estoque</Title>
             <Form method='post'>
                 <fieldset className='row g-3'>
-                    <Item item={item} />
+                    <Movement item={item} />
                 </fieldset>
                 <Button className="btn btn-primary me-3" disabled={formData}>
-                    { formData ? 'Alterando...' : 'Alterar' }
+                    { formData ? 'Movimentando...' : 'Movimentar' }
                 </Button>
                 <Button 
                     className="btn btn-dark" 
@@ -49,8 +50,8 @@ const UpdateItem = () => {
                 </Button>
             </Form>
         </> 
-        : <Alert message="Não foi possível carregar o item." />
+        : <Alert message="Não foi possível carregar o item para movimentação." />
     )
 }
 
-export default UpdateItem
+export default InOut

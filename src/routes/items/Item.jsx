@@ -12,7 +12,7 @@ const Item = ({ item, ...props }) => {
                 defaultValue={ item.id } 
                 label='Id' 
                 name='id' 
-                { ...props }
+                readOnly
                 />
             }
             <FormInput 

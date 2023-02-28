@@ -1,29 +1,35 @@
 import React from 'react'
-import { Form, redirect, useNavigate, useNavigation } from 'react-router-dom'
+import { useEffect } from 'react';
+import { redirect, useFetcher, useNavigate, useNavigation } from 'react-router-dom'
 import { Button, Title } from '../../components';
+import { useNotify } from '../../contexts/NotifyContext';
 import { Insert } from '../../models/Item';
 import Item from './Item';
 
 export async function action({ request }) {
   const formData = await request.formData();
   const item = Object.fromEntries(formData);
-  const success = await Insert(item);
+  const error = await Insert(item);
   
-  if (success) {
-    return redirect('/itens');
-  }
-
-  return null;
+  return error || redirect('/itens');
 }
 
 const InsertItem = () => {
+  const fetcher = useFetcher();
+  const addNotify = useNotify();
   const navigate = useNavigate();
   const { formData } = useNavigation();
+
+  useEffect(() => {
+    console.log(fetcher)
+    if(fetcher.error) addNotify('Não foi possível inserir o item.')
+  }, [fetcher.data])
+  
   
   return (
     <>
       <Title color='secondary' position='start'>Incluir item</Title>
-      <Form method='post'>
+      <fetcher.Form method='post'>
         <fieldset className='row g-3'>
           <Item />
         </fieldset>
@@ -38,7 +44,7 @@ const InsertItem = () => {
         >
           Voltar
         </Button>
-      </Form>
+      </fetcher.Form>
     </>
   )
 }

@@ -27,7 +27,7 @@ const ItemTableRows = ({ actions, columns, rows, ...props }) => {
                     { actions && 
                         <td>
                             <CrudActions route={`${row.id}`}>
-                                <MovementActions />
+                                <MovementActions itemId={row.id} />
                             </CrudActions>
                         </td> 
                     }

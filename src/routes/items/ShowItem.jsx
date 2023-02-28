@@ -1,28 +1,28 @@
 import React from 'react'
 import { Form, useLoaderData, useNavigate, useNavigation } from 'react-router-dom'
-import { Button, Spinner, Title } from '../../components';
+import { Alert, Button, Spinner, Title } from '../../components';
 import { getItem } from '../../controllers/Items';
 import Item from './Item';
 
 export async function loader({ params }) {
-  const { data, error } = await getItem(params.itemId);
-  console.log(data)
-  return { data, error };
+  const { data } = await getItem(params.itemId);
+
+  return data;
 }
 
 const ShowItem = () => {
-    const { data, error } = useLoaderData();
+    const item = useLoaderData();
     const navigate = useNavigate();
     const { state, formData } = useNavigation();
 
     return state === 'loading' 
     ? <Spinner /> 
-    : ( 
+    : ( item ? 
         <>
             <Title color='secondary' position='start'>Visualizar item</Title>
             <Form method='post'>
                 <fieldset className='row g-3'>
-                    <Item item={data} readOnly />
+                    <Item item={item} readOnly />
                 </fieldset>
                 <Button 
                     className="btn btn-dark" 
@@ -33,7 +33,7 @@ const ShowItem = () => {
                     Voltar
                 </Button>
             </Form>
-        </>
+        </> : <Alert message="Não foi possível carregar o item." />
     )
 }
 

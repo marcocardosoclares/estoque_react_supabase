@@ -7,6 +7,7 @@ import authRoutes from "./auth/AuthRoutes";
 import dashboardRoutes from "./dashboard/dashBoardRoutes";
 import itemRoutes from "./items/itemRoutes";
 import categoryRoutes from "./categories/categoryRoutes";
+import movementRoutes from "./movements/movementRoutes";
 
 
 const router = createBrowserRouter([
@@ -21,7 +22,8 @@ const router = createBrowserRouter([
         children: [
             ...dashboardRoutes,
             ...itemRoutes,
-            ...categoryRoutes
+            ...categoryRoutes,
+            ...movementRoutes
         ]
     }
 ]);
