@@ -22,14 +22,14 @@ const Movement = ({ item }) => {
                 defaultValue={ item?.name } 
                 label='Nome' 
                 name='item_name' 
-                readOnly
+                disabled
             />
             <FormInput 
                 columns={columnSize} 
                 defaultValue={ item?.description } 
                 label='Descrição' 
                 name='item_description' 
-                readOnly
+                disabled
             />
             <FormInput 
                 columns={columnSize}
@@ -50,6 +50,11 @@ const Movement = ({ item }) => {
                 label='Quantidade a movimentar' 
                 name='quantity' 
                 type='number'  
+            />
+            <FormInput 
+                columns={columnSize} 
+                label='Comentário' 
+                name='description' 
             />
         </>
     )

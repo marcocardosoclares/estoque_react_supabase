@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useSearchParams, useSubmit } from 'react-router-dom'
 
-const TableColumns = ({ columns }) => {
+const TableColumns = ({ action = true, columns }) => {
 
   const submit = useSubmit();
   const [ searchParams ] = useSearchParams();
@@ -22,7 +22,7 @@ const TableColumns = ({ columns }) => {
               </button>
             </th>
           )) }
-          <th></th>
+          { action && <th></th> }
         </tr>
     </thead>
   )

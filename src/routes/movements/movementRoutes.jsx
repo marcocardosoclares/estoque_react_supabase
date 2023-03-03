@@ -1,13 +1,19 @@
 import Private from "../Private";
-import InOut, { 
+import InsertMovement, { 
     action as insertMovementAction,
     loader as insertMovementLoader 
-} from "./InOut";
+} from "./InsertMovement";
+import ItemMovements, {loader as ItemMovementsLoader} from "./ItemMovements";
 
 const movementRoutes = [
     {
+        path: 'movimentos/:itemId',
+        element: <Private><ItemMovements /></Private>,
+        loader: ItemMovementsLoader
+    },
+    {
         path: 'movimentos/:itemId/inserir',
-        element: <Private><InOut /></Private>,
+        element: <Private><InsertMovement /></Private>,
         action: insertMovementAction,
         loader: insertMovementLoader
     }

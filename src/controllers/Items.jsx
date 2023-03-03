@@ -17,6 +17,8 @@ export async function getItems(searchQuery, sortBy) {
 
     const { data, error } = await query.order(sortBy ?? 'id');
 
+    console.log(data)
+
     return { data, error };
 }
 
@@ -37,10 +39,8 @@ export async function getItem(id) {
 }
 
 export async function updateItem(item) {
-    if ('active' in item === false) item.active = false;
-
     const { error } = await supabase
     .from('items').update(item).eq('id', item.id);
 
-    return error ? false : true;
+    return error;
 }

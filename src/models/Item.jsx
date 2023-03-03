@@ -19,7 +19,6 @@ export async function Insert(item) {
         'in_out': 'I',
         'item_id': insertResult.id,
         'quantity': item.quantity,
-        'amount': item.quantity,
         'description': 'Cadastro'
     }
     

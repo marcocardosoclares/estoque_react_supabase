@@ -1,6 +1,6 @@
 import React from 'react'
 import { Form, redirect, useLoaderData, useNavigate, useNavigation } from 'react-router-dom'
-import { Alert, Button, Title } from '../../components';
+import { Alert, Button, Spinner, Title } from '../../components';
 import { getItem, updateItem } from '../../controllers/Items';
 import Item from './Item';
 
@@ -8,6 +8,8 @@ export async function action({ request }) {
   
   const formData = await request.formData();
   const item = Object.fromEntries(formData);
+  item.active = 'active' in item;
+  console.log(item);
   const success = await updateItem(item);
   
   if (success) {

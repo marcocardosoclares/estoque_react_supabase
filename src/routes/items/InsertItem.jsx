@@ -21,8 +21,7 @@ const InsertItem = () => {
   const { formData } = useNavigation();
 
   useEffect(() => {
-    console.log(fetcher)
-    if(fetcher.error) addNotify('Não foi possível inserir o item.')
+    if(fetcher?.data?.error) addNotify('Não foi possível inserir o item.')
   }, [fetcher.data])
   
   

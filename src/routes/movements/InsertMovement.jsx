@@ -1,21 +1,16 @@
-import React from 'react'
-import { Form, redirect, useLoaderData, useNavigate, useNavigation } from 'react-router-dom'
-import { Alert, Button, Title } from '../../components';
+import React, { useEffect } from 'react'
+import { redirect, useFetcher, useLoaderData, useNavigate, useNavigation } from 'react-router-dom'
+import { Alert, Button, Spinner, Title } from '../../components';
+import { useNotify } from '../../contexts/NotifyContext';
 import { getItem } from '../../controllers/Items';
+import { Insert } from '../../models/Movement';
 import Movement from './Movement';
 
 export async function action({ request }) {
-  
   const formData = await request.formData();
   const movement = Object.fromEntries(formData);
-  console.log(movement);
-//   const success = await updateItem(item);
-  
-//   if (success) {
-//     return redirect('/itens');
-//   }
 
-  return null;
+  return await Insert(movement) || redirect('/itens');
 }
 
 export async function loader({ params }) {
@@ -23,22 +18,28 @@ export async function loader({ params }) {
   return data;
 }
 
-const InOut = () => {
+const InsertMovement = () => {
     const item = useLoaderData();
+    const fetcher = useFetcher();
+    const addNotify = useNotify();
     const navigate = useNavigate();
     const { state, formData } = useNavigation();
+
+    useEffect(() => {
+        if(fetcher?.data?.error) addNotify(fetcher.data.error)
+      }, [fetcher.data])
 
     return state === 'loading' 
     ? <Spinner /> 
     : ( item 
         ? <>
             <Title color='secondary' position='start'>Movimentar Estoque</Title>
-            <Form method='post'>
+            <fetcher.Form method='post'>
                 <fieldset className='row g-3'>
                     <Movement item={item} />
                 </fieldset>
-                <Button className="btn btn-primary me-3" disabled={formData}>
-                    { formData ? 'Movimentando...' : 'Movimentar' }
+                <Button className="btn btn-primary me-3" disabled={fetcher.formData}>
+                    { fetcher.formData ? 'Movimentando...' : 'Movimentar' }
                 </Button>
                 <Button 
                     className="btn btn-dark" 
@@ -48,10 +49,10 @@ const InOut = () => {
                 >
                     Voltar
                 </Button>
-            </Form>
+            </fetcher.Form>
         </> 
         : <Alert message="Não foi possível carregar o item para movimentação." />
     )
 }
 
-export default InOut
+export default InsertMovement
