@@ -11,18 +11,15 @@ export const indexColumns = {
 };
 
 export async function Insert(item) {
-    let insertResult = null;
-    insertResult = await insertItem(item);
-    if (insertResult.error) return insertResult;
+    const insertResult = await insertItem(item);
+    if (insertResult.error) return insertResult; 
     
     const movement = {
         'in_out': 'I',
-        'item_id': insertResult.id,
+        'item_id': insertResult.data.id,
         'quantity': item.quantity,
         'description': 'Cadastro'
     }
     
-    insertResult = await insertMovement(movement);
-  
-    return insertResult;
+    return await insertMovement(movement);
 }

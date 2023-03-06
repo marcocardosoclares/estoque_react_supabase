@@ -1,10 +1,7 @@
 import Alert from './Alert';
 import Button from './Button';
-import CustomLink from './CustomLink';
 import FormCheckbox from './FormCheckbox';
 import FormInput from './FormInput';
-import Input from './Input';
-import JustifyBetween from './JustifyBetween';
 import Menu from './Menu';
 import Modal from './Modal';
 import Navbar from './Navbar';
@@ -18,11 +15,8 @@ import Notify from './Notify';
 export { 
     Alert,
     Button, 
-    CustomLink,
     FormCheckbox, 
     FormInput, 
-    Input, 
-    JustifyBetween, 
     Menu,
     Modal,
     Navbar,

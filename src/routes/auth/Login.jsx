@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Link, Navigate, useFetcher, useNavigation } from 'react-router-dom'
+import { Link, Navigate, useFetcher } from 'react-router-dom'
 import { Button, FormInput, Title } from '../../components'
 import { useAuth } from '../../contexts/Auth';
 import { useNotify } from '../../contexts/NotifyContext';
@@ -8,20 +8,16 @@ import { signIn } from '../../controllers/Auth';
 export async function action({ request }) {
     const formData = await request.formData();
     const credentials = Object.fromEntries(formData);
-    const { data, error } = await signIn(credentials);
-    
-    return { data, error};
+    return await signIn(credentials);
 }
 
 const Login = () => {
     const fetcher = useFetcher();
-    const {formData} = useNavigation();
     const { user } = useAuth();
     const addNotify = useNotify();
 
     useEffect(() => {
-        console.log(fetcher)
-      if(fetcher.data) addNotify('E-mail ou senha inválidos')
+      if(fetcher.data?.error) addNotify(fetcher.data.error.message)
     }, [fetcher.data])
     
 
@@ -32,8 +28,8 @@ const Login = () => {
                 <Title>Login</Title>
                 <FormInput label="E-mail" name="email" type="email" />
                 <FormInput label="Senha" name="password" type="password" />
-                <Button className="btn btn-primary" disabled={formData}>
-                    { formData ? 'Entrando...' : 'Entrar' }
+                <Button className="btn btn-primary" disabled={fetcher.formData}>
+                    { fetcher.formData ? 'Entrando...' : 'Entrar' }
                 </Button>
                 <Link to='/esqueci' className='text-decoration-none float-end'>Esqueci a senha</Link>
             </fetcher.Form> 

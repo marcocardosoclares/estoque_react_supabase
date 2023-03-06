@@ -15,30 +15,17 @@ export async function getCategories(searchQuery, sortBy) {
         query = query.or(filter.join(','));
     }
 
-    const { data, error } = await query.order(sortBy ?? 'id');
-
-    return { data, error };
+    return await query.order(sortBy ?? 'id');
 }
 
 export async function insertCategory(category) {
-    const { error } = await supabase
-    .from('categories').insert(category);
-
-    return error ? false : true;
+    return await supabase.from('categories').insert(category);
 }
 
 export async function getCategory(id) {
-    const { data, error } = await supabase
-    .from('categories')
-    .select()
-    .eq('id',id).single();
-
-    return { data, error };
+    return await supabase.from('categories').select().eq('id',id).single();
 }
 
 export async function updateCategory(category) {
-    const { error } = await supabase
-    .from('categories').update(category).eq('id', category.id);
-
-    return error ? false : true;
+    return await supabase.from('categories').update(category).eq('id', category.id);
 }

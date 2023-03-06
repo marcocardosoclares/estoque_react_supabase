@@ -19,7 +19,7 @@ export async function Insert(movement) {
 
     const { item_quantity, ...newMovement} = movement;
     const { error } = await insertMovement(newMovement);
-    if (error) return error;
+    if (error) return {error};
     
     const itemUpdate = {
         'id': movement.item_id,
@@ -31,17 +31,15 @@ export async function Insert(movement) {
 async function checkQuantity(itemId, quantity) {
     const { data, error } = await getItem(itemId);
     
-    if (error) return {
-        'error': 'Não foi possível validar a quantidade movimentada'
-    }
+    if (error) return {error}
 
     if (quantity > data?.maximum_quantity) return {
-        'error': `O saldo não pode ser maior que 
-        a quantidade máxima de ${data.maximum_quantity} unidades`
+        'error': {'message': `O saldo não pode ser maior que 
+        a quantidade máxima de ${data.maximum_quantity} unidades`}
     }
 
     if (quantity < 0) return {
-        'error': 'O saldo não pode ser negativo'
+        'error': {'message': 'O saldo não pode ser negativo'}
     }
 
     return null;

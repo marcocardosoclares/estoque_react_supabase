@@ -1,6 +1,5 @@
-import React from 'react'
-import { useEffect } from 'react';
-import { redirect, useFetcher, useNavigate, useNavigation } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { redirect, useFetcher, useNavigate } from 'react-router-dom'
 import { Button, Title } from '../../components';
 import { useNotify } from '../../contexts/NotifyContext';
 import { Insert } from '../../models/Item';
@@ -9,19 +8,19 @@ import Item from './Item';
 export async function action({ request }) {
   const formData = await request.formData();
   const item = Object.fromEntries(formData);
-  const error = await Insert(item);
+  const {error} = await Insert(item);
   
-  return error || redirect('/itens');
+  if(!error) return redirect('/itens');
+  return {error}
 }
 
 const InsertItem = () => {
   const fetcher = useFetcher();
   const addNotify = useNotify();
   const navigate = useNavigate();
-  const { formData } = useNavigation();
 
   useEffect(() => {
-    if(fetcher?.data?.error) addNotify('Não foi possível inserir o item.')
+    if(fetcher.data?.error) addNotify(fetcher.data.error.message)
   }, [fetcher.data])
   
   
@@ -32,12 +31,12 @@ const InsertItem = () => {
         <fieldset className='row g-3'>
           <Item />
         </fieldset>
-        <Button className="btn btn-primary me-3" disabled={formData}>
-          { formData ? 'Incluindo...' : 'Incluir' }
+        <Button className="btn btn-primary me-3" disabled={fetcher.formData}>
+          { fetcher.formData ? 'Incluindo...' : 'Incluir' }
         </Button>
         <Button 
           className="btn btn-dark" 
-          disabled={formData} 
+          disabled={fetcher.formData} 
           onClick={() => navigate('/itens')}
           type="button"
         >

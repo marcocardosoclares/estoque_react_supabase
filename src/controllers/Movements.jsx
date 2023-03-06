@@ -2,9 +2,7 @@ import { supabase } from "../services/Database";
 import { getItem } from "./Items";
 
 export async function insertMovement(movement) {
-    const { error } = await supabase.from('movements').insert(movement);
-
-    return { error };
+    return await supabase.from('movements').insert(movement);
 }
 
 export async function getMovements(itemId) {

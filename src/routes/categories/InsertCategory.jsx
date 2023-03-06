@@ -1,46 +1,52 @@
-import React from 'react'
-import { Form, redirect, useNavigate, useNavigation } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { redirect, useFetcher, useNavigate } from 'react-router-dom'
 import { Button, Title } from '../../components';
 import { insertCategory } from '../../controllers/Categories';
+import { useNotify } from '../../contexts/NotifyContext';
 import Category from './Category';
 
 export async function action({ request }) {
   const formData = await request.formData();
   const category = Object.fromEntries(formData);
-  const success = await insertCategory(category);
+  const {error} = await insertCategory(category);
   
-  if (success) {
+  if (!error) {
     return redirect('/categorias');
   }
 
-  return null;
+  return {error};
 }
 
 const InsertCategory = () => {
-  const navigate = useNavigate();
-  const { formData } = useNavigation();
+    const navigate = useNavigate();
+    const fetcher = useFetcher();
+    const addNotify = useNotify();
+
+    useEffect(() => {
+      if(fetcher.data?.error) addNotify(fetcher.data.error.message)
+    }, [fetcher.data])
   
-  return (
-    <>
-      <Title color='secondary' position='start'>Incluir categoria</Title>
-      <Form method='post'>
-        <fieldset className='row g-3'>
-          <Category />
-        </fieldset>
-        <Button className="btn btn-primary me-3" disabled={formData}>
-          { formData ? 'Incluindo...' : 'Incluir' }
-        </Button>
-        <Button 
-          className="btn btn-dark" 
-          disabled={formData} 
-          onClick={() => navigate('/categorias')}
-          type="button"
-        >
-          Voltar
-        </Button>
-      </Form>
-    </>
-  )
+    return (
+      <>
+        <Title color='secondary' position='start'>Incluir categoria</Title>
+        <fetcher.Form method='post'>
+          <fieldset className='row g-3'>
+            <Category />
+          </fieldset>
+          <Button className="btn btn-primary me-3" disabled={fetcher.formData}>
+            { fetcher.formData ? 'Incluindo...' : 'Incluir' }
+          </Button>
+          <Button 
+            className="btn btn-dark" 
+            disabled={fetcher.formData} 
+            onClick={() => navigate('/categorias')}
+            type="button"
+          >
+            Voltar
+          </Button>
+        </fetcher.Form>
+      </>
+    )
 }
 
 export default InsertCategory

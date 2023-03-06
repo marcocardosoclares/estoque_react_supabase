@@ -5,24 +5,22 @@ import { getItem } from '../../controllers/Items';
 import Item from './Item';
 
 export async function loader({ params }) {
-  const { data } = await getItem(params.itemId);
-
-  return data;
+  return await getItem(params.itemId);
 }
 
 const ShowItem = () => {
-    const item = useLoaderData();
+    const loader = useLoaderData();
     const navigate = useNavigate();
     const { state, formData } = useNavigation();
 
     return state === 'loading' 
     ? <Spinner /> 
-    : ( item ? 
+    : ( loader.data ? 
         <>
             <Title color='secondary' position='start'>Visualizar item</Title>
             <Form method='post'>
                 <fieldset className='row g-3'>
-                    <Item item={item} readOnly />
+                    <Item item={loader.data} readOnly />
                 </fieldset>
                 <Button 
                     className="btn btn-dark" 
@@ -33,7 +31,7 @@ const ShowItem = () => {
                     Voltar
                 </Button>
             </Form>
-        </> : <Alert message="Não foi possível carregar o item." />
+        </> : <Alert message={loader.error.message} />
     )
 }
 

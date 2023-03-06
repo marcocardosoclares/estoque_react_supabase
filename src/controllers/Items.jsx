@@ -15,32 +15,26 @@ export async function getItems(searchQuery, sortBy) {
         query = query.or(filter.join(','));
     }
 
-    const { data, error } = await query.order(sortBy ?? 'id');
-
-    console.log(data)
-
-    return { data, error };
+    return await query.order(sortBy ?? 'id');
 }
 
 export async function insertItem(item) {
-    const {data, error} = await supabase
-    .from('items').insert(item).select('id');
-    const id = !error ? data[0].id : null;
-
-    return { id, error };
+    return await supabase
+    .from('items')
+    .insert(item)
+    .select('id')
+    .single();
 }
 
 export async function getItem(id) {
-    const {data, error} = await supabase.from('items').select(
+    return await supabase.from('items').select(
         '*, categories(id, name)'
     ).eq('id',id).single();
-
-    return { data, error };
 }
 
 export async function updateItem(item) {
     const { error } = await supabase
     .from('items').update(item).eq('id', item.id);
 
-    return error;
+    return {error};
 }
